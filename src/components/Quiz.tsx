@@ -50,7 +50,7 @@ export function Quiz({ quizId, user, questions, onFinish, onHome }: QuizProps) {
     setDone(false);
   };
 
-  return <div className="s2"><HomeBtn onClick={onHome} /><div className="q-top"><div className="timer"><div className="tdot" />{fmt(elapsedMs)}</div><div className="clue-badge">Clue {qi + 1} / {questions.length}</div></div><div className="pbar-wrap"><div className="pbar" style={{ width: `${(qi / questions.length) * 100}%` }} /></div><div className="q-body"><div className="q-icon"><span>{q.emoji}</span></div><div className="q-txt">{q.q}</div>
+  return <div className="s2"><HomeBtn onClick={onHome} /><div className="q-top"><div className="timer"><div className="tdot" />{fmt(elapsedMs)}</div><div className="clue-badge">Question {qi + 1} / {questions.length}</div></div><div className="pbar-wrap"><div className="pbar" style={{ width: `${(qi / questions.length) * 100}%` }} /></div><div className="q-body"><div className="q-icon"><span>{q.emoji}</span></div><div className="q-txt">{q.q}</div>
     {q.opts.map((opt, i) => { let cls = "opt"; if (done) cls += i === q.ans ? " correct" : i === sel ? " wrong" : " dimmed"; return <button key={i} className={cls} onClick={() => { if (done) return; if (qi + 1 >= questions.length) stopMsRef.current = Math.floor(performance.now() - startRef.current); setSel(i); setDone(true); const ok = i === q.ans; if (ok) { setScore((s) => s + 1); playCorrect(); } else playWrong(); trackEvent("question_answered", quizId,
   { name: user.name, specialty: user.specialty, phone: user.phone },
   { qi: qi + 1, correct: ok },
