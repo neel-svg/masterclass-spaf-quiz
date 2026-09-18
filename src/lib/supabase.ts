@@ -13,7 +13,7 @@ if (!SUPABASE_URL || !SUPABASE_ANON) {
 export const sb = createClient<Database>(SUPABASE_URL ?? "", SUPABASE_ANON ?? "");
 
 export async function verifyAdminSecret(secret: string): Promise<boolean> {
-  const { data } = await sb.rpc("verify_admin_secret", { secret });
+  const { data } = await sb.rpc("verify_spaf_admin_secret", { secret });
   return Boolean(data);
 }
 
@@ -22,7 +22,7 @@ export async function fetchActiveQuiz(): Promise<ActiveQuiz | null> {
 
   // Try currently active quiz
   const { data: active } = await sb
-    .from("quizzes")
+    .from("spaf_quizzes")
     .select("quiz_id, questions, starts_at, ends_at")
     .lte("starts_at", now)
     .gte("ends_at", now)
@@ -41,7 +41,7 @@ export async function fetchActiveQuiz(): Promise<ActiveQuiz | null> {
 
   // Fall back to most recently ended quiz
   const { data: recent } = await sb
-    .from("quizzes")
+    .from("spaf_quizzes")
     .select("quiz_id, questions, starts_at, ends_at")
     .lt("ends_at", now)
     .order("ends_at", { ascending: false })
@@ -61,7 +61,7 @@ export async function fetchActiveQuiz(): Promise<ActiveQuiz | null> {
 
 export async function checkAlreadyPlayed(phone: string, quizId: number, cycleStart: string): Promise<boolean> {
   const { data } = await sb
-    .from("responses")
+    .from("spaf_responses")
     .select("id")
     .eq("quiz_id", quizId)
     .eq("cycle_start", cycleStart)
@@ -78,13 +78,13 @@ export async function submitScore(payload: {
   const normalizedPhone = normalizePhone(payload.phone);
 
   await sb
-    .from("users")
+    .from("spaf_users")
     .upsert(
       [{ phone: normalizedPhone, name: payload.name, specialty: payload.specialty, updated_at: new Date().toISOString() }],
       { onConflict: "phone" },
     );
 
-  const { error } = await sb.from("responses").insert([{
+  const { error } = await sb.from("spaf_responses").insert([{
     quiz_id: payload.quizId, name: payload.name, specialty: payload.specialty, phone: normalizedPhone,
     score: payload.score, time_ms: payload.timeMs, cycle_start: payload.cycleStart,
   }]);
@@ -96,7 +96,7 @@ export async function submitScore(payload: {
 
 export async function fetchUserRank(quizId: number, score: number, timeMs: number, cycleStart: string): Promise<number | null> {
   const { count, error } = await sb
-    .from("responses")
+    .from("spaf_responses")
     .select("*", { count: "exact", head: true })
     .eq("quiz_id", quizId)
     .eq("cycle_start", cycleStart)
@@ -109,7 +109,7 @@ export async function fetchLeaderboard(quizId: number, cycleStart: string, admin
   const canViewPhone = adminSecret ? await verifyAdminSecret(adminSecret) : false;
   const selectFields = canViewPhone ? "name, specialty, score, time_ms, phone" : "name, specialty, score, time_ms";
   const { data, error } = await sb
-    .from("responses")
+    .from("spaf_responses")
     .select(selectFields)
     .eq("quiz_id", quizId)
     .eq("cycle_start", cycleStart)

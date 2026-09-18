@@ -61,22 +61,22 @@ export type Database = {
       }
       quizzes: {
         Row: {
+          ends_at: string | null
           questions: Json
           quiz_id: number
           starts_at: string | null
-          ends_at: string | null
         }
         Insert: {
+          ends_at?: string | null
           questions: Json
           quiz_id?: never
           starts_at?: string | null
-          ends_at?: string | null
         }
         Update: {
+          ends_at?: string | null
           questions?: Json
           quiz_id?: never
           starts_at?: string | null
-          ends_at?: string | null
         }
         Relationships: []
       }
@@ -131,6 +131,147 @@ export type Database = {
           },
         ]
       }
+      spaf_admin_secrets: {
+        Row: {
+          created_at: string
+          id: number
+          is_active: boolean
+          secret_hash: string
+        }
+        Insert: {
+          created_at?: string
+          id?: never
+          is_active?: boolean
+          secret_hash: string
+        }
+        Update: {
+          created_at?: string
+          id?: never
+          is_active?: boolean
+          secret_hash?: string
+        }
+        Relationships: []
+      }
+      spaf_analytics: {
+        Row: {
+          created_at: string | null
+          event: string
+          id: number
+          payload: string | null
+          quiz_id: number | null
+        }
+        Insert: {
+          created_at?: string | null
+          event: string
+          id?: never
+          payload?: string | null
+          quiz_id?: number | null
+        }
+        Update: {
+          created_at?: string | null
+          event?: string
+          id?: never
+          payload?: string | null
+          quiz_id?: number | null
+        }
+        Relationships: []
+      }
+      spaf_quizzes: {
+        Row: {
+          ends_at: string | null
+          questions: Json
+          quiz_id: number
+          starts_at: string | null
+        }
+        Insert: {
+          ends_at?: string | null
+          questions: Json
+          quiz_id?: never
+          starts_at?: string | null
+        }
+        Update: {
+          ends_at?: string | null
+          questions?: Json
+          quiz_id?: never
+          starts_at?: string | null
+        }
+        Relationships: []
+      }
+      spaf_responses: {
+        Row: {
+          created_at: string
+          cycle_start: string
+          id: number
+          name: string
+          phone: string
+          quiz_id: number
+          score: number
+          specialty: string
+          time_ms: number
+        }
+        Insert: {
+          created_at?: string
+          cycle_start: string
+          id?: never
+          name: string
+          phone: string
+          quiz_id: number
+          score: number
+          specialty: string
+          time_ms: number
+        }
+        Update: {
+          created_at?: string
+          cycle_start?: string
+          id?: never
+          name?: string
+          phone?: string
+          quiz_id?: number
+          score?: number
+          specialty?: string
+          time_ms?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "spaf_responses_phone_fkey"
+            columns: ["phone"]
+            isOneToOne: false
+            referencedRelation: "spaf_users"
+            referencedColumns: ["phone"]
+          },
+          {
+            foreignKeyName: "spaf_responses_quiz_id_fkey"
+            columns: ["quiz_id"]
+            isOneToOne: false
+            referencedRelation: "spaf_quizzes"
+            referencedColumns: ["quiz_id"]
+          },
+        ]
+      }
+      spaf_users: {
+        Row: {
+          created_at: string
+          name: string
+          phone: string
+          specialty: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          name: string
+          phone: string
+          specialty: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          name?: string
+          phone?: string
+          specialty?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       users: {
         Row: {
           created_at: string
@@ -157,10 +298,39 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      leaderboard: {
+        Row: {
+          created_at: string | null
+          cycle_start: string | null
+          name: string | null
+          phone: string | null
+          quiz_id: number | null
+          rank: number | null
+          score: number | null
+          specialty: string | null
+          time_ms: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "responses_phone_fkey"
+            columns: ["phone"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["phone"]
+          },
+          {
+            foreignKeyName: "responses_quiz_id_fkey"
+            columns: ["quiz_id"]
+            isOneToOne: false
+            referencedRelation: "quizzes"
+            referencedColumns: ["quiz_id"]
+          },
+        ]
+      }
     }
     Functions: {
       verify_admin_secret: { Args: { secret: string }; Returns: boolean }
+      verify_spaf_admin_secret: { Args: { secret: string }; Returns: boolean }
     }
     Enums: {
       [_ in never]: never

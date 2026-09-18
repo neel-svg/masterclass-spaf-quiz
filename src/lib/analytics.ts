@@ -41,7 +41,7 @@ export async function trackEvent(
     // Merge event-specific extras after doc fields
     Object.assign(payload, extras);
 
-    await sb.from("analytics").insert([{
+    await sb.from("spaf_analytics").insert([{
       event,
       quiz_id: quizId,
       payload: JSON.stringify(payload),
