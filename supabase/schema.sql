@@ -83,6 +83,10 @@ drop policy if exists spaf_users_public_upsert on public.spaf_users;
 create policy spaf_users_public_upsert
   on public.spaf_users for insert to anon, authenticated with check (true);
 
+drop policy if exists spaf_users_public_read on public.spaf_users;
+create policy spaf_users_public_read
+  on public.spaf_users for select to anon, authenticated using (true);
+
 drop policy if exists spaf_users_public_update on public.spaf_users;
 create policy spaf_users_public_update
   on public.spaf_users for update to anon, authenticated using (true) with check (true);
