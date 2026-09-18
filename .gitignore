@@ -1,0 +1,57 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+
+# Vite / TypeScript generated files
+*.tsbuildinfo
+vite.config.js
+vite.config.d.ts
+vite.config.js.timestamp-*
+vite.config.ts.timestamp-*
+.vite/
+
+# Environment variables — keep .env.example tracked
+.env
+.env.*
+!.env.example
+
+# Logs
+*.log
+logs/
+yarn-debug.log*
+yarn-error.log*
+npm-debug.log*
+pnpm-debug.log*
+
+# Coverage / test output
+coverage/
+*.lcov
+.nyc_output/
+
+# Cache directories
+.eslintcache
+.stylelintcache
+.parcel-cache/
+.cache/
+
+# OS artifacts
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Editor / IDE
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# mcp
+.mcp.json
+
+# docs
+docs/
