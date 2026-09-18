@@ -4,6 +4,7 @@ import { checkAlreadyPlayed } from "../lib/supabase";
 import { isValidPhone, normalizePhone } from "../lib/quiz";
 import { loadUserLocally, saveUserLocally } from "../lib/storage";
 import { prewarmAudio } from "../lib/sound";
+import { BrandLogo } from "./common/BrandLogo";
 import type { UserProfile } from "../lib/types";
 
 interface GatewayProps {
@@ -60,7 +61,7 @@ export function Gateway({ quizId, cycleStart, onStart, onShowLeaderboard }: Gate
 
   const specs = ["General Medicine (MD/DNB)", "General Medicine (MBBS)", "Gastroenterology", "Hepatology", "Family Medicine", "General Surgery", "Pediatrics", "Cardiology", "ENT", "Neurology", "Other"];
 
-  return <div className="s1"><div className="hero-top"><div className="big-emoji">🫀</div><div className="su s1-title">Atrial Fibrillation<br /><span>Masterclass</span></div><div className="su2 s1-sub">Think you know AF? Take the challenge.</div></div>
+  return <div className="s1"><div className="hero-top"><BrandLogo /><div className="su2 s1-sub">Think you know AF? Take the challenge.</div></div>
     <div className="prize-card su2"><div className="prize-em">🏆</div><div><div className="prize-h">Can you top the leaderboard? Test your AF knowledge across clinical cases.</div><div className="prize-p">Accuracy + speed = your leaderboard rank.</div></div></div>
     <div className="reset-strip su3"><div className="reset-strip-icon">🔄</div><div className="reset-strip-text">Challenge the leaderboard. Complete the clinical challenge and see how you rank against other cardiologists.</div></div>
     {alreadyPlayed && <div className="played-banner su3"><div className="played-icon">🎯</div><div className="played-h">You've already completed the challenge!</div><div className="played-p">Each challenge can only be played once per phone number.</div><button className="btn-lb" onClick={onShowLeaderboard}>🏅 View Leaderboard</button></div>}

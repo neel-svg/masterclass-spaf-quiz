@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { BrandLogo } from "./components/common/BrandLogo";
 import { FALLBACK_QUESTIONS, QUIZ_ENDED } from "./config/constants";
 import { Gateway } from "./components/Gateway";
 import { LeaderboardScreen } from "./components/LeaderboardScreen";
@@ -10,7 +11,7 @@ import { fetchActiveQuiz, verifyAdminSecret } from "./lib/supabase";
 import type { ActiveQuiz, Screen, UserProfile } from "./lib/types";
 
 function AppLoader() {
-  return <div className="app-loader"><div className="app-loader-emoji">🫀</div><div className="spinner" style={{ margin: 0 }} /><div className="app-loader-txt">Loading challenge…</div></div>;
+  return <div className="app-loader"><BrandLogo /><div className="spinner" style={{ margin: 0 }} /><div className="app-loader-txt">Loading challenge…</div></div>;
 }
 
 export default function App() {
@@ -49,8 +50,7 @@ export default function App() {
       <div className="shell">
         <div className="s1">
           <div className="hero-top">
-            <div className="big-emoji">🫀</div>
-            <div className="su s1-title">Atrial Fibrillation<br /><span>Masterclass</span></div>
+            <BrandLogo />
             <div className="su2 s1-sub">The SPAF Masterclass challenge has ended. Thank you for playing!</div>
           </div>
         </div>
@@ -63,8 +63,7 @@ export default function App() {
       {screen === "no_quiz" && (
         <div className="s1">
           <div className="hero-top">
-            <div className="big-emoji">🫀</div>
-            <div className="su s1-title">Atrial Fibrillation<br /><span>Masterclass</span></div>
+            <BrandLogo />
             <div className="su2 s1-sub">No active challenge right now — check back soon! 🕐</div>
           </div>
           {activeQuiz && <LeaderboardView quizId={quizId} cycleStart={cycleStart} user={null} isAdmin={isAdmin} adminParam={adminParam} />}
