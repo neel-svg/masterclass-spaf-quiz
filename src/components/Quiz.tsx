@@ -55,6 +55,6 @@ export function Quiz({ quizId, user, questions, onFinish, onHome }: QuizProps) {
   { name: user.name, specialty: user.specialty, phone: user.phone },
   { qi: qi + 1, correct: ok },
 ); }} disabled={done}><span className="oletter">{letters[i]}</span><span style={{ flex: 1 }}>{opt}</span></button>; })}
-    {done && <div className={`fb ${isRight ? "ok" : "bad"}`}><div className="fb-v">{isRight ? "🎉 Excellent!" : "💡 Not quite."}</div>{!isRight && <div className="fb-ca">✅ Answer: {q.opts[q.ans]}</div>}<div className="fb-ex">{q.expl}</div><button className="btn-next" onClick={next}>{qi + 1 >= questions.length ? "📋 See My Results" : "Next Question"}</button></div>}
+    {done && <div className={`fb ${isRight ? "ok" : "bad"}`}><div className="fb-v">{isRight ? "🎉 Excellent!" : "💡 Not quite."}</div>{!isRight && <div className="fb-ca">✅ Answer: {q.opts[q.ans]}</div>}<div className="fb-ex"><div>Go beyond the question.</div><div>Discover more with SPAF Masterclass 2026</div></div><button className="btn-next" onClick={next}>{qi + 1 >= questions.length ? "📋 See My Results" : "Next Question"}</button></div>}
   </div></div>;
 }

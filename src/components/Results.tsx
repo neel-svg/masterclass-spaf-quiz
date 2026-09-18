@@ -47,9 +47,9 @@ export function Results({ quizId, user, timeMs, score, cycleStart, endsAt, onHom
   const showLeaderboard = submitResult === "ok" || submitResult === "duplicate";
 
   return <div className="s3"><HomeBtn onClick={onHome} /><Confetti />
-    <div className="r-hero"><div className="r-trophy">🏆</div><div className="r-tag">Case Closed!</div><div className="r-title">Well done,<br /><span>Dr. {user.name.trim().replace(/^(dr|mr|ms|mrs|prof)\.?\s+/i, "").split(/\s+/)[0]}!</span></div><div className="r-time">⏱ Completed in {fmt(timeMs)}</div><div className="stats"><div className="sbox"><div className="snum">{score}/5</div><div className="slbl">Correct</div></div><div className="sbox"><div className="snum">Quiz #{quizId}</div><div className="slbl">Quiz</div></div><div className="sbox"><div className="snum">{fmt(timeMs)}</div><div className="slbl">Time</div></div></div></div>
+    <div className="r-hero"><div className="r-trophy">🏆</div><div className="r-tag">Case Closed!</div><div className="r-title">Well done,<br /><span>Dr. {user.name.trim().replace(/^(dr|mr|ms|mrs|prof)\.?\s+/i, "").split(/\s+/)[0]}!</span></div><div className="r-time">⏱ Completed in {fmt(timeMs)}</div><div className="stats"><div className="sbox"><div className="snum">{score}/5</div><div className="slbl">Correct</div></div><div className="sbox"><div className="snum">{fmt(timeMs)}</div><div className="slbl">Time</div></div></div></div>
     <div className="cta">
-      <div className="cta-h">You made the call. Now hear the experts.</div>
+      <div className="cta-h">Take your clinical learning further</div>
       <div className="cta-p" style={{ marginBottom: 8 }}>5 AF dilemmas. And that's just the beginning.</div>
       <div className="cta-p">From post-stroke AF detection and DOAC switching to PCI and perioperative anticoagulation — discover how the experts navigate decisions beyond the obvious.</div>
       <div className="cta-date">SPAF Masterclass 2026 | 25 Sep | 8:00 PM IST</div>
