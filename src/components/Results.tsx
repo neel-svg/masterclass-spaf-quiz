@@ -7,8 +7,8 @@ import { submitScore, type SubmitResult } from "../lib/supabase";
 import type { UserProfile } from "../lib/types";
 import { LeaderboardView } from "./LeaderboardView";
 import { Confetti } from "./common/Confetti";
-import { CountdownWidget } from "./common/CountdownWidget";
 import { HomeBtn } from "./common/HomeBtn";
+// import { CountdownWidget } from "./common/CountdownWidget";
 
 interface ResultsProps {
   quizId: number;
@@ -55,7 +55,7 @@ export function Results({ quizId, user, timeMs, score, cycleStart, endsAt, onHom
       <div className="cta-date">SPAF Masterclass 2026 | 25 Sep | 8:00 PM IST</div>
       <a className="btn-cf" href={RESERVE_SEAT_URL} target="_blank" rel="noopener noreferrer">RESERVE YOUR SEAT →</a>
     </div>
-    <CountdownWidget endsAt={endsAt} />
+    {/* <CountdownWidget endsAt={endsAt} /> */}
     {submitResult === "duplicate" && <div className="lb-loading" style={{ color: "#f59e0b" }}>ℹ️ You have already completed this challenge. Showing leaderboard.</div>}
     {submitResult === "error" && <div className="lb-loading" style={{ color: "#ef4444" }}>⚠️ Score could not be saved. Check your connection and try again.</div>}
     {showLeaderboard ? <LeaderboardView quizId={quizId} cycleStart={cycleStart} user={user} score={score} timeMs={timeMs} isAdmin={isAdmin} adminParam={adminParam} /> : !submitResult && <div className="lb-loading"><div className="spinner" />Submitting your score…</div>}

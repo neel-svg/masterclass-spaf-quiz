@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { trackEvent } from "../lib/analytics";
 import { LeaderboardView } from "./LeaderboardView";
-import { CountdownWidget } from "./common/CountdownWidget";
 import { HomeBtn } from "./common/HomeBtn";
+// import { CountdownWidget } from "./common/CountdownWidget";
 
 interface LeaderboardScreenProps {
   quizId: number;
@@ -25,7 +25,7 @@ export function LeaderboardScreen({ quizId, cycleStart, endsAt, isAdmin, adminPa
         <div className="r-trophy" style={{ fontSize: 48 }}>🏅</div>
         <div className="r-title">SPAF Masterclass - 2026<br /><span>Leaderboard</span></div>
       </div>
-      <CountdownWidget endsAt={endsAt} />
+      {/* <CountdownWidget endsAt={endsAt} /> */}
       <LeaderboardView quizId={quizId} cycleStart={cycleStart} user={null} isAdmin={isAdmin} adminParam={adminParam} />
     </div>
   );
